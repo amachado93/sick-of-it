@@ -31,8 +31,10 @@ const EmojiPicker = () => {
 
     return(
         <div>
-            {emojiMap}
-            <p>hello from EmojiPicker</p>
+            <h3>select an emoji</h3>
+            <div className="emojiArea">
+                {emojiMap}
+            </div>
         </div>
     )
 }

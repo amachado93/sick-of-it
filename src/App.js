@@ -16,6 +16,9 @@ function App() {
 	const [token, setToken] = useState('');
 	const [tracks, setTracks] = useState([]);
 
+  // States for choosing a color
+  const [color, setColor] = useState('');
+
   // useEffect(()=>{
 
 	// 	// Api call for retrieving token
@@ -48,7 +51,7 @@ function App() {
 
   return (
     <div className="App">
-      <ColorPicker />
+      <ColorPicker color={color} setColor={setColor} />
       <EmojiPicker />
     </div>
   );

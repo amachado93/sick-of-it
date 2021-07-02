@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ColorPicker = () => {
+const ColorPicker = (props) => {
 
     // 9 key/value pairs for colors and corresponding tempo
     const colorData = [
@@ -42,15 +42,25 @@ const ColorPicker = () => {
         }
     ];
     
-    const colorSquares = colorData.map( color => {
-       return <div key={color.bpm} className={color.color}><p>{color.bpm}</p></div>
-        }
+    const handleClick = e => {
+        console.log(e.target.className);
+    }
 
+    const colorSquares = colorData.map( color => {
+       return <div key={color.bpm} className={color.bpm} onClick={handleClick}>
+                {color.color}
+            </div>
+        }
     )
 
+   
+
     return(
-        <div className="colorPicker">
-            {colorSquares}
+        <div>
+            <h3>select a color</h3>
+            <div className="colorArea">
+                {colorSquares}
+            </div>
         </div>
     )
 }
