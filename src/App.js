@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import ColorPicker from './components/ColorPicker';
+import EmojiPicker from './components/EmojiPicker';
 
 function App() {
   // variables for api call
@@ -48,6 +49,7 @@ function App() {
   return (
     <div className="App">
       <ColorPicker />
+      <EmojiPicker />
     </div>
   );
 }
