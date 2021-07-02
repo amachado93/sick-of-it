@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
+import ColorPicker from './components/ColorPicker';
+
 function App() {
   // variables for api call
   const genre = 'rock';
@@ -45,7 +47,7 @@ function App() {
 
   return (
     <div className="App">
-      <div>Hello world!</div>
+      <ColorPicker />
     </div>
   );
 }
