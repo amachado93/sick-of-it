@@ -48,10 +48,13 @@ function App() {
 	// 	}).catch(error => console.log(error));
 	// },[])
 
+  const colorChoice = colorPick => {
+	setColor(colorPick);
+  }
 
   return (
     <div className="App">
-      <ColorPicker color={color} setColor={setColor} />
+      <ColorPicker color={color} colorChoice={colorChoice} />
       <EmojiPicker />
     </div>
   );

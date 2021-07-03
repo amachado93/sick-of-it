@@ -43,7 +43,7 @@ const ColorPicker = (props) => {
     ];
     
     const handleClick = e => {
-        console.log(e.target.className);
+        props.colorChoice(e.target.className)
     }
 
     const colorSquares = colorData.map( color => {
