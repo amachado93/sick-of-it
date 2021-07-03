@@ -16,46 +16,53 @@ function App() {
 	const [token, setToken] = useState('');
 	const [tracks, setTracks] = useState([]);
 
-  // States for choosing a color
+  // State for choosing a color
   const [color, setColor] = useState('');
 
-  // useEffect(()=>{
+  // State for choosing an emoji
+  const [emoji, setEmoji] = useState('');
 
-	// 	// Api call for retrieving token
-	// 	axios('https://accounts.spotify.com/api/token', {
-	// 		'method': 'POST',
-	// 		'headers': {
-	// 			 'Content-Type':'application/x-www-form-urlencoded',
-	// 			 'Authorization': 'Basic ' + (Buffer.from('47121a7fd2fb4c1bae39b1fe32d26270' + ':' + '56586566642040fe8f71b83a6be94ce6').toString('base64')),
-	// 		},
-	// 		data: 'grant_type=client_credentials'
-	// 	}).then(tokenresponse => {
-	// 		console.log(tokenresponse.data.access_token);
-	// 		setToken(tokenresponse.data.access_token);
+  useEffect(()=>{
 
-	// 		// Api call for retrieving tracks data
-	// 		axios(`https://api.spotify.com/v1/recommendations?limit=10&market=US&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=${genre}&seed_tracks=0c6xIDDpzE81m2q797ordA&max_tempo=${tempo}`,{
-	// 			'method': 'GET',
-	// 			'headers': {
-	// 				'Content-Type': 'application/json',
-	// 				'Accept': 'application/json',
-	// 				'Authorization': 'Bearer ' + tokenresponse.data.access_token
-	// 			}
-	// 		}).then(trackresponse=> {
-	// 			console.log(trackresponse.data.tracks);
-	// 			setTracks(trackresponse.data.tracks);
-	// 		}).catch(error=> console.log(error))
-	// 	}).catch(error => console.log(error));
-	// },[])
+		// Api call for retrieving token
+		axios('https://accounts.spotify.com/api/token', {
+			'method': 'POST',
+			'headers': {
+				 'Content-Type':'application/x-www-form-urlencoded',
+				 'Authorization': 'Basic ' + (Buffer.from('47121a7fd2fb4c1bae39b1fe32d26270' + ':' + '56586566642040fe8f71b83a6be94ce6').toString('base64')),
+			},
+			data: 'grant_type=client_credentials'
+		}).then(tokenresponse => {
+			console.log(tokenresponse.data.access_token);
+			setToken(tokenresponse.data.access_token);
+
+			// Api call for retrieving tracks data
+			axios(`https://api.spotify.com/v1/recommendations?limit=10&market=US&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=${genre}&seed_tracks=0c6xIDDpzE81m2q797ordA&max_tempo=${tempo}`,{
+				'method': 'GET',
+				'headers': {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json',
+					'Authorization': 'Bearer ' + tokenresponse.data.access_token
+				}
+			}).then(trackresponse=> {
+				console.log(trackresponse.data.tracks);
+				setTracks(trackresponse.data.tracks);
+			}).catch(error=> console.log(error))
+		}).catch(error => console.log(error));
+	},[])
 
   const colorChoice = colorPick => {
 	setColor(colorPick);
   }
 
+  const emojiChoice = emojiPick => {
+	setEmoji(emojiPick);
+  }
+
   return (
     <div className="App">
       <ColorPicker color={color} colorChoice={colorChoice} />
-      <EmojiPicker />
+      <EmojiPicker emoji={emoji} emojiChoice={emojiChoice} />
     </div>
   );
 }

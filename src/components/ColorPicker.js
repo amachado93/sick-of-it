@@ -53,8 +53,6 @@ const ColorPicker = (props) => {
         }
     )
 
-   
-
     return(
         <div>
             <h3>select a color</h3>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EmojiPicker = () => {
+const EmojiPicker = (props) => {
 
     const emojiArray = [
         {
@@ -25,8 +25,14 @@ const EmojiPicker = () => {
         },
     ];
 
+    const handleClick = e => {
+        props.emojiChoice(e.target.className)
+    }
+
     const emojiMap = emojiArray.map(emoji => {
-        return <div key={emoji.emoji}><p>{emoji.emoji}</p></div>
+        return <div key={emoji.emoji}>
+                   <p className={emoji.genre} onClick={handleClick}>{emoji.emoji}</p>
+               </div>
     })
 
     return(
