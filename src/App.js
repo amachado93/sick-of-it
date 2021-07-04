@@ -9,9 +9,7 @@ import EmojiPicker from './components/EmojiPicker/EmojiPicker';
 import Tracks from './components/Tracks/Tracks';
 
 function App() {
-  // variables for api call
-  const genre = 'rock';
-  const tempo = 120;
+  
 
   // Set up states for retrieving access token and top tracks
 	const [token, setToken] = useState('');
@@ -22,6 +20,10 @@ function App() {
 
   // State for choosing an emoji
   const [emoji, setEmoji] = useState('');
+
+  // variables for api call
+  const genre = emoji;
+  const tempo = color;
 
   useEffect(()=>{
 
@@ -50,7 +52,7 @@ function App() {
 				setTracks(trackresponse.data.tracks);
 			}).catch(error=> console.log(error))
 		}).catch(error => console.log(error));
-	},[])
+	}, [emoji])
 
   const colorChoice = colorPick => {
 	setColor(colorPick);
@@ -67,7 +69,10 @@ function App() {
 	  </header>
       <ColorPicker color={color} colorChoice={colorChoice} />
       <EmojiPicker emoji={emoji} emojiChoice={emojiChoice} />
-	  <Tracks tracks={tracks} />
+	  {emoji 
+		? <Tracks tracks={tracks} />
+		: null
+	  }
     </div>
   );
 }

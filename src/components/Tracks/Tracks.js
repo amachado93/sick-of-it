@@ -6,7 +6,7 @@ const Tracks = (props) => {
     const trackMap = props.tracks.map(track => {
         return <div key={track.id} className="track">
         <div className="track-artwork">
-            <img src={track.album.images[1].url} alt="album" />
+        <a href={track.external_urls.spotify}><img src={track.album.images[1].url} alt="album" /></a>
         </div>
         <div className="track-datapoints">
             <p>artist</p>
@@ -15,14 +15,14 @@ const Tracks = (props) => {
         </div>
         <div className="track-info">
             <p><b>{track.artists[0].name}</b></p>
-            <p>{track.name}</p>
+            <p><a href={track.external_urls.spotify}>{track.name}</a></p>
             <p>{track.album.name}</p>
         </div>
     </div>
     })
     
     return(
-        <div>
+        <div className="Tracks">
             <h3>your music</h3>
             <div className="music-area">
                 {trackMap}

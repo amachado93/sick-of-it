@@ -3,10 +3,16 @@ body {
   color: #484848;
 }
 
+.App {
+  width: 80%;
+  margin: 0 auto;
+}
+
 header img {
   max-width: 100px;
 }
 
-div h3 {
-  margin-left: 8%;
+a {
+  text-decoration: none;
+  color: #4664ff;
 }
