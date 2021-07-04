@@ -1,0 +1,24 @@
+.music-area {
+  display: flex;
+  background-color: #f7f7f7;
+  border-radius: 15px;
+  padding: 1.5em 3.5em;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.track {
+  display: flex;
+  flex-direction: row;
+}
+
+.track-artwork {
+  margin-right: 0.75em;
+}
+
+.track-artwork img {
+  max-width: 150px;
+}
+.track-datapoints {
+  margin-right: 0.75em;
+}

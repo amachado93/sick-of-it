@@ -1,4 +1,5 @@
 import React from 'react';
+import './Tracks.css';
 
 const Tracks = (props) => {
     return(
@@ -6,14 +7,16 @@ const Tracks = (props) => {
             <h3>your music</h3>
             <div className="music-area">
                 <div className="track">
-                    <img src="https://i.scdn.co/image/ab67616d00001e020f7ad6d8d829906c17cae210" alt="album" />
-                    <div>
+                    <div className="track-artwork">
+                        <img src="https://i.scdn.co/image/ab67616d00001e020f7ad6d8d829906c17cae210" alt="album" />
+                    </div>
+                    <div className="track-datapoints">
                         <p>artist</p>
                         <p>title</p>
                         <p>album</p>
                         <p>vibe</p>
                     </div>
-                    <div>
+                    <div className="track-info">
                         <p><b>dolly parton</b></p>
                         <p>city girl</p>
                         <p>here you come again</p>

@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
-import ColorPicker from './components/ColorPicker';
-import EmojiPicker from './components/EmojiPicker';
-import Tracks from './components/Tracks';
+import ColorPicker from './components/ColorPicker/ColorPicker';
+import EmojiPicker from './components/EmojiPicker/EmojiPicker';
+import Tracks from './components/Tracks/Tracks';
 
 function App() {
   // variables for api call
@@ -62,6 +62,9 @@ function App() {
 
   return (
     <div className="App">
+	  <header>
+	 	<img src="https://www.pinclipart.com/picdir/big/52-529647_download-new-emoji-icons-transparent-background-sick-emoji.png" alt="nauseous emoji" /> 
+	  </header>
       <ColorPicker color={color} colorChoice={colorChoice} />
       <EmojiPicker emoji={emoji} emojiChoice={emojiChoice} />
 	  <Tracks />
