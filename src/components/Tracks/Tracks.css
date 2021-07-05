@@ -5,6 +5,7 @@
 .music-area {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   background-color: #f7f7f7;
   border-radius: 15px;
   padding: 1em 3em;

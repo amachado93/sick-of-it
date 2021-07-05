@@ -68,7 +68,7 @@ export const Emojis = [
         genre:"disco"
     },
     {
-        genre:'👾',
+        emoji:'👾',
         genre:"drum-and-bass"
     },
     {
