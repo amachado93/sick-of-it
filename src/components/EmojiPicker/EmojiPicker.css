@@ -24,6 +24,7 @@
 
 .emoji:hover {
   background-color: #4664ff;
+  cursor: pointer;
 }
 
 .emoji:active {
