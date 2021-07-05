@@ -65,6 +65,7 @@ function App() {
   return (
     <div className="App">
 	  <header>
+	  <h1>sick of it</h1>
 	 	<img src="https://www.pinclipart.com/picdir/big/52-529647_download-new-emoji-icons-transparent-background-sick-emoji.png" alt="nauseous emoji" /> 
 	  </header>
       <ColorPicker color={color} colorChoice={colorChoice} />
