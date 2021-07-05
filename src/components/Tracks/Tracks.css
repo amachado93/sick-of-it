@@ -12,6 +12,10 @@
   margin: 0 auto;
 }
 
+.music-area p {
+  margin: 0;
+}
+
 .track {
   display: flex;
   flex-direction: row;
@@ -28,5 +32,34 @@
   max-width: 150px;
 }
 .track-datapoints {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   margin-right: 0.75em;
+  min-height: 150px;
+  max-height: 150px;
+}
+
+.track-datapoints p:first-of-type {
+  padding-top: 0.5em;
+}
+
+.track-datapoints p:last-of-type {
+  padding-bottom: 0.5em;
+}
+
+.track-info {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: 150px;
+  max-height: 150px;
+}
+
+.track-info p:first-of-type {
+  padding-top: 0.5em;
+}
+
+.track-info p:last-of-type {
+  padding-bottom: 0.5em;
 }
