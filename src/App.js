@@ -13,6 +13,10 @@ import Header from './components/Header/Header';
 function App() {
 	require('dotenv').config();
 
+	//dotenv variables
+	const clientId = process.env.REACT_APP_SPOTIFY_KEY;
+	const clientSecret = process.env.REACT_APP_SPOTIFY_SECRET;
+
 	// Set up states for retrieving access token and top tracks
 	const [token, setToken] = useState('')
 	const [tracks, setTracks] = useState([]);
@@ -28,8 +32,12 @@ function App() {
 	const tempo = color;
 
 	const getAuth = async () => {
-		const clientId = process.env.REACT_APP_SPOTIFY_KEY;
-		const clientSecret = process.env.REACT_APP_SPOTIFY_SECRET;
+		axios.get(`https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=https%3A%2F%2Fsick-of-it.herokuapp.com%2F`).then(res =>{
+			console.log(res);
+		})
+	}
+
+	const getToken = async () => {
 		
 		const headers = {
 		  headers: {
@@ -63,20 +71,23 @@ function App() {
 	useEffect(()=>{
 		  
 		  getAuth();
+		  getToken();
 
-		  const getTracks = () => axios.get(`https://api.spotify.com/v1/recommendations?limit=12&market=US&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=${genre}&seed_tracks=0c6xIDDpzE81m2q797ordA&max_tempo=${tempo}`,{
-				'method': 'GET',
-				'headers': {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json',
-					'Authorization': 'Bearer ' + token
-				}
-			}).then(trackResponse => {
-				console.log(trackResponse.data.tracks);
-				setTracks(trackResponse.data.tracks);
-			}).catch(error => {
-				console.log(error)
-			})
+		  const getTracks = () => {
+				axios.get(`https://api.spotify.com/v1/recommendations?limit=12&market=US&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=${genre}&seed_tracks=0c6xIDDpzE81m2q797ordA&max_tempo=${tempo}`,{
+					'method': 'GET',
+					'headers': {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+						'Authorization': 'Bearer ' + token
+					}
+				}).then(trackResponse => {
+					console.log(trackResponse.data.tracks);
+					setTracks(trackResponse.data.tracks);
+				}).catch(error => {
+					console.log(error)
+				})
+			}	
 
 			getTracks();
 	}, [emoji])
