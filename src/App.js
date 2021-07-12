@@ -3,6 +3,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
+import qs from 'qs';
 
 import ColorPicker from './components/ColorPicker/ColorPicker';
 import EmojiPicker from './components/EmojiPicker/EmojiPicker';
@@ -12,8 +13,12 @@ import Header from './components/Header/Header';
 function App() {
 	require('dotenv').config();
 
+	//dotenv variables
+	const clientId = process.env.REACT_APP_SPOTIFY_KEY;
+	const clientSecret = process.env.REACT_APP_SPOTIFY_SECRET;
+
 	// Set up states for retrieving access token and top tracks
-	const [token, setToken] = useState('');
+	const [token, setToken] = useState('')
 	const [tracks, setTracks] = useState([]);
 
 	// State for choosing a color
@@ -26,34 +31,67 @@ function App() {
 	const genre = emoji;
 	const tempo = color;
 
+	const getAuth = async () => {
+		axios.get(`https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=https%3A%2F%2Fsick-of-it.herokuapp.com%2F`).then(res =>{
+			console.log(res);
+		})
+	}
+
+	const getToken = async () => {
+		
+		const headers = {
+		  headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/x-www-form-urlencoded',
+		  },
+		  auth: {
+			username: clientId,
+			password: clientSecret,
+		  },
+		};
+
+		const data = {
+		  grant_type: 'client_credentials',
+		};
+	  
+		try {
+		  const response = await axios.post(
+			'https://accounts.spotify.com/api/token',
+			qs.stringify(data),
+			headers
+		  );
+		  console.log(response.data.access_token);
+		  setToken(response.data.access_token)
+		  return response.data.access_token;
+		} catch (error) {
+		  console.log(error);
+		}
+	  };
+
 	useEffect(()=>{
+		  
+		  getAuth();
+		  getToken();
 
-		// Api call for retrieving token
-		axios('https://accounts.spotify.com/api/token', {
-			'method': 'POST',
-			'headers': {
-				 'Content-Type':'application/x-www-form-urlencoded',
-				 'Authorization': 'Basic ' + (Buffer.from(process.env.REACT_APP_SPOTIFY_KEY + ':' + process.env.REACT_APP_SPOTIFY_SECRET).toString('base64')),
-			},
-			data: 'grant_type=client_credentials'
-		}).then(tokenResponse => {
-			setToken(tokenResponse.data.access_token);
+		  const getTracks = () => {
+				axios.get(`https://api.spotify.com/v1/recommendations?limit=12&market=US&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=${genre}&seed_tracks=0c6xIDDpzE81m2q797ordA&max_tempo=${tempo}`,{
+					'method': 'GET',
+					'headers': {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+						'Authorization': 'Bearer ' + token
+					}
+				}).then(trackResponse => {
+					console.log(trackResponse.data.tracks);
+					setTracks(trackResponse.data.tracks);
+				}).catch(error => {
+					console.log(error)
+				})
+			}	
 
-			// Api call for retrieving tracks data
-			axios(`https://api.spotify.com/v1/recommendations?limit=12&market=US&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=${genre}&seed_tracks=0c6xIDDpzE81m2q797ordA&max_tempo=${tempo}`,{
-				'method': 'GET',
-				'headers': {
-					'Content-Type': 'application/json',
-					'Accept': 'application/json',
-					'Authorization': 'Bearer ' + tokenResponse.data.access_token
-				}
-			}).then(trackResponse=> {
-				console.log(trackResponse.data.tracks);
-				setTracks(trackResponse.data.tracks);
-			}).catch(error=> console.log(error))
-		}).catch(error => console.log(error));
+			getTracks();
 	}, [emoji])
-
+// add emoji to above square brackets once API call is settled
   const colorChoice = colorPick => {
 	setColor(colorPick);
   }
